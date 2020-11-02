@@ -1,0 +1,54 @@
+/* atur ulang layout dasar */
+html {
+    font-size: 72.5%;
+}
+
+#app-wrapper {
+    /* flex-direction: row; */
+    padding: 2rem;
+    align-items: stretch;
+    display: grid;
+    grid-template-areas:
+        "img info info"
+        "img cta cta";
+}
+
+/* perkecil size img */
+.product-image {
+    width: initial;
+    margin: 0;
+    grid-area: img;
+}
+
+.product-image img {
+    max-width: 450px;
+}
+
+.counter-small {
+    right: 5rem;
+    bottom: 2rem;
+}
+
+/* product info */
+.product-info {
+    margin: 0;
+    grid-area: info;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 700px;
+}
+
+/* cta */
+.btn-wrapper {
+    grid-area: cta;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    width: 50%;
+}
