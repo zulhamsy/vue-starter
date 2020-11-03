@@ -1,3 +1,31 @@
+const reviewProduct = {
+	props: ['index', 'reviews'],
+
+  computed: {
+    filteredReview() {
+      return this.reviews.filter(review => review.id == this.index);
+    }
+  },
+  
+  methods: {
+  	addReview(item) {
+  	  this.reviews.unshift(item);
+  	}
+  },
+
+  template: `
+    <div class="reviews-wrapper">
+    	<h3>Product Review</h3>
+    	<p v-show="!filteredReview.length">There are no review yet</p>
+    	<div v-for="review in filteredReview" class="review">
+    		<p class="name">{{ review.name }}</p>
+    		<p class="rating">{{ review.rating }} dari 5</p>
+    		<p class="desc">{{ review.desc }}</p>
+    	</div>
+    </div>
+	`
+};
+
 Vue.component('button-cta', {
   props: ['quantity', 'addState', 'removeState'],
 
@@ -36,7 +64,7 @@ Vue.component('button-cta', {
 });
 
 Vue.component('review-form', {
-	props: ['id'],
+  props: ['id'],
 
   data() {
     return {
@@ -51,7 +79,7 @@ Vue.component('review-form', {
     submitReview() {
       if (this.name && this.desc && this.rating) {
         this.reviews = {
-        	id: this.id,
+          id: this.id,
           name: this.name,
           desc: this.desc,
           rating: this.rating
@@ -157,10 +185,6 @@ const app = new Vue({
 
     isError() {
       return !this.stock;
-    },
-    
-    filteredReview() {
-    	return this.reviews.filter(review => review.id == this.index);
     }
   },
 
@@ -184,5 +208,9 @@ const app = new Vue({
     addReview(item) {
     	this.reviews.unshift(item);
     }
+  },
+  
+  components: {
+  	'product-review': reviewProduct
   }
 });
