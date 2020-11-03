@@ -3,17 +3,17 @@ Vue.component('button-cta', {
 
   computed: {
     qty() {
-      if(this.quantity > 0) {
-      	return `(${this.quantity})`;
+      if (this.quantity > 0) {
+        return `(${this.quantity})`;
       }
     },
-    
+
     addBtnState() {
-    	return !this.addState;
+      return !this.addState;
     },
-    
+
     remBtnState() {
-    	return !this.removeState;
+      return !this.removeState;
     }
   },
 
@@ -35,14 +35,74 @@ Vue.component('button-cta', {
 	`
 });
 
+Vue.component('review-form', {
+	props: ['id'],
+
+  data() {
+    return {
+      name: null,
+      desc: null,
+      rating: null,
+      reviews: null
+    }
+  },
+
+  methods: {
+    submitReview() {
+      if (this.name && this.desc && this.rating) {
+        this.reviews = {
+        	id: this.id,
+          name: this.name,
+          desc: this.desc,
+          rating: this.rating
+        };
+        // reset data
+        this.name = null;
+        this.desc = null;
+        this.rating = null;
+        // emit event
+        this.$emit('submit-review', this.reviews)
+      }
+    }
+  },
+
+  template: `
+    <form class="form-review" accept-charset="utf-8" @submit.prevent="submitReview">
+      <!--Name Field-->
+      <div class="form-control">
+        <label for="name">Name:</label>
+        <input v-model="name" type="text" name="name" id="name" autocomplete="off" />
+      </div>
+      <!--Review Desc-->
+      <div class="form-control">
+        <label for="review">Review:</label>
+        <textarea v-model="desc" wrap="on" cols="30" rows="5" name="review" id="review"></textarea>
+      </div>
+      <!--Rating-->
+      <div class="form-control">
+        <label>Rating:</label>
+        <div class="inline-radio">
+          <span class="radio-wrapper" v-for="n in 5">
+            <input v-model.number="rating" type="radio" name="rate" :value="n" :id="n" />
+            <label :for="n">{{ n }}</label>
+          </span>
+        </div>
+      </div>
+      <!--Submit-->
+      <input class="btn btn-sm btn-primary" type="submit" value="Submit Review" />
+    </form>
+	`
+});
+
 const app = new Vue({
   el: '#app-wrapper',
   data: {
     index: 0,
     cart: [],
+    reviews: [],
     products: [
       {
-        id: 1,
+        id: 0,
         name: 'Green Forest',
         color: 'green',
         brand: 'Vue Mastery',
@@ -51,7 +111,7 @@ const app = new Vue({
 			},
 
       {
-        id: 2,
+        id: 1,
         name: 'Brothers in Blue',
         color: 'blue',
         brand: 'Vue School',
@@ -60,7 +120,7 @@ const app = new Vue({
 			},
 
       {
-        id: 3,
+        id: 2,
         name: 'The Lavender',
         color: 'purple',
         brand: 'Vuetify',
@@ -86,17 +146,21 @@ const app = new Vue({
         return 'Available'
       }
     },
-    
+
     stock() {
-    	return this.products[this.index].stocks;
+      return this.products[this.index].stocks;
     },
 
     mycarts() {
       return this.cart.filter(num => num == this.products[this.index].id).length;
     },
-    
+
     isError() {
-    	return !this.stock;
+      return !this.stock;
+    },
+    
+    filteredReview() {
+    	return this.reviews.filter(review => review.id == this.index);
     }
   },
 
@@ -115,6 +179,10 @@ const app = new Vue({
         this.cart.splice(this.cart.lastIndexOf(this.products[this.index].id), 1);
       }
       this.products[this.index].stocks++
+    },
+    
+    addReview(item) {
+    	this.reviews.unshift(item);
     }
   }
 });
