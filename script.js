@@ -3,7 +3,7 @@ const reviewProduct = {
 
   computed: {
     filteredReview() {
-      return this.reviews.filter(review => review.id == this.index);
+      return this.reviews.filter(review => review.productId == this.index);
     }
   },
   
@@ -79,7 +79,7 @@ Vue.component('review-form', {
     submitReview() {
       if (this.name && this.desc && this.rating) {
         this.reviews = {
-          id: this.id,
+          productId: this.id,
           name: this.name,
           desc: this.desc,
           rating: this.rating
