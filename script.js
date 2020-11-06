@@ -1,4 +1,6 @@
-const reviewProduct = {
+const eventBus = new Vue();
+
+Vue.component('product-review',{
 	props: ['index', 'reviews'],
 
   computed: {
@@ -24,7 +26,7 @@ const reviewProduct = {
     	</div>
     </div>
 	`
-};
+});
 
 Vue.component('button-cta', {
   props: ['quantity', 'addState', 'removeState'],
@@ -88,8 +90,8 @@ Vue.component('review-form', {
         this.name = null;
         this.desc = null;
         this.rating = null;
-        // emit event
-        this.$emit('submit-review', this.reviews)
+        // emit event from event bus
+        eventBus.$emit('submit-review', this.reviews)
       }
     }
   },
@@ -120,6 +122,34 @@ Vue.component('review-form', {
       <input class="btn btn-sm btn-primary" type="submit" value="Submit Review" />
     </form>
 	`
+});
+
+Vue.component('review-tab', {
+	props: ['reviews', 'index'],
+	
+	template: `
+		<div class="review-tab">
+			<span v-for="(tab, index) in tabs"
+						:id="index"
+						:class="{active: selectedTab == tab }"
+						@click="selectedTab = tab">
+			{{ tab }} </span>
+			<product-review 
+				v-show="selectedTab == 'Reviews'"
+				:reviews="reviews" 
+				:index="index"></product-review>
+			<review-form
+				v-show="selectedTab == 'Submit Review'"
+				:id="index"></review-form>
+		</div>
+	`,
+	
+	data() {
+		return {
+			tabs: ['Reviews', 'Submit Review'],
+			selectedTab: 'Reviews',
+		}
+	}
 });
 
 const app = new Vue({
@@ -203,14 +233,12 @@ const app = new Vue({
         this.cart.splice(this.cart.lastIndexOf(this.products[this.index].id), 1);
       }
       this.products[this.index].stocks++
-    },
-    
-    addReview(item) {
-    	this.reviews.unshift(item);
     }
   },
   
-  components: {
-  	'product-review': reviewProduct
+  mounted() {
+  	eventBus.$on('submit-review', review => {
+  		this.reviews.unshift(review);
+  	})
   }
 });

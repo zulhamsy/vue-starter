@@ -190,6 +190,11 @@ input[type="submit"] {
 	margin-right: 1rem;
 }
 
+/* Review Tab */
+.active {
+	font-weight: 450;
+}
+
 /* Reviews */
 .reviews-wrapper {
 	margin-top: 1.8rem;

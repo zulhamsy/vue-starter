@@ -22,14 +22,31 @@
       <h2>by {{ brand }}</h2>
       <p :class="{error: isError}">{{ stockName }}</p>
       <div class="color-selection">
-        <div class="color" v-for="(product, index) in products" :key="product.id" @click="changeProduct(index)" :style="{backgroundColor: product.color}"></div>
+        <div 
+        	class="color" 
+        	v-for="(product, index) in products"
+        	:key="product.id" 
+        	@click="changeProduct(index)"
+        	:style="{backgroundColor: product.color}"></div>
       </div>
     </div>
     <!--CTA Button-->
-    <button-cta :quantity="cart.length" :add-state="stock" :remove-state="mycarts" @add-item="addCartItem" @remove-item="removeCartItem"></button-cta>
+    <button-cta 
+    	:quantity="cart.length" 
+    	:add-state="stock" 
+    	:remove-state="mycarts" 
+    	@add-item="addCartItem" 
+    	@remove-item="removeCartItem"></button-cta>
     <!--Review Section-->
-		<product-review :reviews="reviews" :index="index"></product-review>
-		<review-form :id="index" @submit-review ="addReview"></review-form>
+    <review-tab
+    	:reviews="reviews"
+    	:index="index"></review-tab>
+		<!--<product-review 
+			:reviews="reviews" 
+			:index="index"></product-review>
+		<review-form 
+			:id="index" 
+			@submit-review ="addReview"></review-form>-->
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="script.js"></script>
