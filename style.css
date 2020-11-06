@@ -148,7 +148,7 @@ form {
 	margin-top: 2rem;
 	width: 100%;
 	background: #eee;
-	padding: 0.5rem;
+	padding: 1rem;
 	border-radius: 5px;
 }
 
@@ -193,6 +193,16 @@ input[type="submit"] {
 /* Review Tab */
 .active {
 	font-weight: 450;
+	border-bottom: 2px solid green;
+}
+
+.review-tab {
+	width: 100%;
+	margin-top: 1.5rem;
+}
+
+.review-tab span {
+	padding: 0.6rem;
 }
 
 /* Reviews */

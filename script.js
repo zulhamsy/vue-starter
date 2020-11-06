@@ -8,12 +8,6 @@ Vue.component('product-review',{
       return this.reviews.filter(review => review.productId == this.index);
     }
   },
-  
-  methods: {
-  	addReview(item) {
-  	  this.reviews.unshift(item);
-  	}
-  },
 
   template: `
     <div class="reviews-wrapper">
