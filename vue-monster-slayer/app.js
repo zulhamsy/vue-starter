@@ -45,6 +45,16 @@ new Vue({
   		}
   	},
   	
+  	healCounter: {
+  		get: function() {
+  			return this.stats.player.healCount;
+  		},
+  		
+  		set: function(value) {
+  			return this.stats.player.healCount = value;
+  		}
+  	},
+  	
   	playerBaseAtk() {
   		return this.stats.player.baseAtk;
   	},
@@ -104,6 +114,13 @@ new Vue({
       this.playerHealth -= this._calcDamage(this.monsterBaseAtk, this.monsterCritAtk);
       // reduce monster HP
       this.monsterHealth -= this._calcDamage(this.playerSpecialAtk, this.playerCritAtk);
+    },
+    
+    heal() {
+    	// reduce heal counter
+    	this.healCounter--
+    	// increase player HP
+    	this.playerHealth += this._calcDamage(this.playerSpecialAtk, this.playerCritAtk);
     },
 
     _calcDamage(min, max) {

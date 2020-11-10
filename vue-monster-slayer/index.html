@@ -53,7 +53,10 @@
         	id="special-attack"
         	@click="specialAttack"
         	:disabled="!specialCounter">SPECIAL ATTACK ({{specialCounter}})</button>
-        <button id="heal">HEAL</button>
+        <button 
+        	id="heal"
+        	@click="heal"
+        	:disabled="!healCounter || playerHealth == 100">HEAL ({{ healCounter }})</button>
         <button 
         	id="give-up"
         	@click="giveUp">GIVE UP</button>
