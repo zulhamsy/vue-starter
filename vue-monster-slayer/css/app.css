@@ -54,6 +54,12 @@ button {
   margin: 10px;
 }
 
+button:disabled {
+	background-color: #eee !important;
+	color: #000 !important;
+	box-shadow: none;
+}
+
 #start-game {
   background-color: #aaffb0;
 }

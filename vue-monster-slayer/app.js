@@ -10,7 +10,9 @@ new Vue({
       		health: 90,
       		baseAtk: 4,
       		critAtk: 10,
-      		specialAtk: 6
+      		specialAtk: 6,
+      		specialCount: 5,
+      		healCount: 3
       	},
       	
       	monster: {
@@ -30,6 +32,16 @@ new Vue({
   		
   		set: function(value) {
   			this.stats.player.health = value;
+  		}
+  	},
+  	
+  	specialCounter: {
+  		get: function() {
+  			return this.stats.player.specialCount;
+  		},
+  		
+  		set: function(value) {
+  			this.stats.player.specialCount = value;
   		}
   	},
   	
@@ -67,9 +79,10 @@ new Vue({
   methods: {
     startGame() {
       this.gameMode = true;
-      // set HP to default
+      // set to default
       this.playerHealth = 100;
       this.monsterHealth = 100;
+      this.specialCounter = 5;
     },
 
     giveUp() {
@@ -85,6 +98,8 @@ new Vue({
     },
 
     specialAttack() {
+    	// reduce counter
+    	this.specialCounter--;
       // reduce player HP
       this.playerHealth -= this._calcDamage(this.monsterBaseAtk, this.monsterCritAtk);
       // reduce monster HP

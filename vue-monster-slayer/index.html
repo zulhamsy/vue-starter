@@ -51,7 +51,8 @@
         	@click="attack">ATTACK</button>
         <button 
         	id="special-attack"
-        	@click="specialAttack">SPECIAL ATTACK</button>
+        	@click="specialAttack"
+        	:disabled="!specialCounter">SPECIAL ATTACK ({{specialCounter}})</button>
         <button id="heal">HEAL</button>
         <button 
         	id="give-up"
