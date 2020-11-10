@@ -18,6 +18,11 @@ new Vue({
 			this.monsterHp = 100;
 		},
 		
+		giveUp() {
+			// set to gameMode false
+			this.gameMode = false;
+		},
+		
 		attack() {
 			// reduce player HP
 			this.playerHp -= this._calcDamage(4,12);
