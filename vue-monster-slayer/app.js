@@ -48,8 +48,13 @@ new Vue({
       }
     },
 
-    _addLog(n, o, user) {
-      this.gameLog.unshift(`${user} hit, get ${o - n} damage`);
+    _addLog(n, o, user, id) {
+      this.gameLog.unshift(
+      	{
+      		id,
+      		msg: `${user} hit, get ${o - n} damage`
+      	}
+      	);
     },
 
     _resetLog() {
@@ -62,14 +67,14 @@ new Vue({
       // check HP
       this._checkWin(NewHP);
       // add item to log
-      this._addLog(NewHP, OldHP, "Player");
+      this._addLog(NewHP, OldHP, "Player", 0);
     },
 
     monsterHp(NewHP, OldHP) {
       // check HP
       this._checkWin(NewHP);
       // add item to log
-      this._addLog(NewHP, OldHP, "Monster");
+      this._addLog(NewHP, OldHP, "Monster", 1);
     },
 
     gameMode(New, Old) {

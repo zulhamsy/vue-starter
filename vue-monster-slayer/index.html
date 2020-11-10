@@ -61,8 +61,11 @@
     <section class="row log">
       <div class="small-12 columns">
         <ul>
-          <li v-for="log in gameLog">
-          	{{ log }}
+          <li 
+          v-for="log in gameLog"
+          class="player-turn"
+          :class="{'monster-turn': log.id}">
+          	{{ log.msg }}
           </li>
         </ul>
       </div>
