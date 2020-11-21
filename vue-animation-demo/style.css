@@ -1,0 +1,53 @@
+/* CSS for Animating */
+
+.fade-enter {
+	/* Initial State */
+  /* opacity: 0;
+  transform: translateY(15px); */
+}
+
+.fade-leave-to {
+	/* End State */
+	/* opacity: 0;
+	transform: translateY(-15px); */
+}
+
+
+.fade-enter-active {
+	/* Ketika -active state, semua kondisi kembali ke DOM Normal State */
+	/* Disini umumnya mengatur durasi, delay */
+  /* transition: all 0.5s ease-in-out	; */
+  animation: faded 0.5s;
+}
+
+.fade-leave-active {
+	animation: faded 0.7s reverse;
+}
+
+.fade-text-enter,
+.fade-text-leave-to {
+	opacity: 0;
+	transform: translateX(15px);
+}
+
+.fade-text-enter-active {
+	transition: all 0.5s ease;
+	transition-delay: 0.3s;
+}
+
+.fade-text-leave-active {
+	transition: all 0.4s ease-in-out;
+	transition-delay: 0.3s;
+}
+
+/* CSS Animation */
+@keyframes faded {
+	from {
+		opacity: 0;
+		transform: translateX(-15px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}

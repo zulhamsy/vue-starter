@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vue Socks Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <link rel="stylesheet" href="style.css" type="text/css" media="all" />
   <link rel="stylesheet" href="wide.css" type="text/css" media="screen and (min-width: 900px)" />
 </head>
@@ -13,7 +14,14 @@
   <div id="app-wrapper">
     <!--Product Image-->
     <div class="product-image">
-      <img :src="products[index].image" alt="socks green" />
+      <transition
+      	appear
+      	mode="out-in"
+      	name="image-transition"
+      	enter-active-class="animate__animated animate__flipInY "
+      	leave-active-class="animate__animated animate__flipOutY">
+        <img :src="products[index].image" alt="socks green" :key="index"/>
+      </transition>
       <div class="counter-small">{{ mycarts }}</div>
     </div>
     <!--Product Info-->
@@ -22,25 +30,13 @@
       <h2>by {{ brand }}</h2>
       <p :class="{error: isError}">{{ stockName }}</p>
       <div class="color-selection">
-        <div 
-        	class="color" 
-        	v-for="(product, index) in products"
-        	:key="product.id" 
-        	@click="changeProduct(index)"
-        	:style="{backgroundColor: product.color}"></div>
+        <div class="color" v-for="(product, index) in products" :key="product.id" @click="changeProduct(index)" :style="{backgroundColor: product.color}"></div>
       </div>
     </div>
     <!--CTA Button-->
-    <button-cta 
-    	:quantity="cart.length" 
-    	:add-state="stock" 
-    	:remove-state="mycarts" 
-    	@add-item="addCartItem" 
-    	@remove-item="removeCartItem"></button-cta>
+    <button-cta :quantity="cart.length" :add-state="stock" :remove-state="mycarts" @add-item="addCartItem" @remove-item="removeCartItem"></button-cta>
     <!--Review Section-->
-    <review-tab
-    	:reviews="reviews"
-    	:index="index"></review-tab>
+    <review-tab :reviews="reviews" :index="index"></review-tab>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="script.js"></script>
